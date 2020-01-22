@@ -22,7 +22,7 @@
     },
     {
       "name": "elapsedMillis",
-      "authors": "Paul Stoffregen, Peter Feerick",
+      "authors": ["Paul Stoffregen", "Peter Feerick"],
       "frameworks": "arduino"
     }
   ],
