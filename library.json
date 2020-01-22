@@ -1,0 +1,28 @@
+{
+  "name": "Mpr121Keyboard",
+  "keywords": "MPR 121, keyboard",
+  "description": "yet another Mpr121 keyboard wrapper",
+  "homepage": "https://github.com/yapiolibs/mpr121keyboard",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yapiolibs/mpr121keyboard.git"
+  },
+  "authors": [
+    {
+        "name": "Raoul Rubien",
+        "url": "https://github.com/rubienr",
+        "maintainer" : "true"
+    }
+  ],
+  
+    "dependencies":
+  {
+    "name": "Adafruit MPR121",
+    "authors": "Adafruit",
+    "frameworks": "arduino"
+  },
+  
+  "version": "0.1",
+  "frameworks": "arduino",
+  "platforms": "*"
+}
