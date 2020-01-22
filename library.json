@@ -9,19 +9,23 @@
   },
   "authors": [
     {
-        "name": "Raoul Rubien",
-        "url": "https://github.com/rubienr",
-        "maintainer" : "true"
+      "name": "Raoul Rubien",
+      "url": "https://github.com/rubienr",
+      "maintainer": "true"
     }
   ],
-  
-    "dependencies":
-  {
-    "name": "Adafruit MPR121",
-    "authors": "Adafruit",
-    "frameworks": "arduino"
-  },
-  
+  "dependencies": [
+    {
+      "name": "Adafruit MPR121",
+      "authors": "Adafruit",
+      "frameworks": "arduino"
+    },
+    {
+      "name": "elapsedMillis",
+      "authors": "Paul Stoffregen, Peter Feerick",
+      "frameworks": "arduino"
+    }
+  ],
   "version": "0.1",
   "frameworks": "arduino",
   "platforms": "*"
