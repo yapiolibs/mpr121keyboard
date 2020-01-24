@@ -1,5 +1,6 @@
 #pragma once
 
+#include <type_traits>
 #include <inttypes.h>
 
 struct KeyEvent
@@ -17,46 +18,43 @@ struct KeyEvent
     using UnterlyingTypeofKey = std::underlying_type<Key>::type;
     using UnterlyingTypeofType = std::underlying_type<Type>::type;
 
-    constexpr static uint8_t keyEnumerationsCount()
-    {
-        return static_cast<UnterlyingTypeofKey>(Key::LastEnumeration);
-    }
+    constexpr static uint8_t keyEnumerationsCount();
 
-    constexpr static uint8_t keysCount()
-    {
-        return keyEnumerationsCount() - 1;
-    }
+    constexpr static uint8_t keyTypeEnumerationsCount();
 
-    constexpr static uint8_t keyTypeEnumerationsCount()
-    {
-        return static_cast<UnterlyingTypeofType>(Type::LastEnumeration);
-    }
+    constexpr static uint8_t keysCount();
 
-    static uint8_t uint8FromKey(Key ke)
-    { 
-        return static_cast<UnterlyingTypeofKey>(ke); 
-    }
+    constexpr static uint8_t typesCount();
 
-    constexpr static uint8_t uint8FromKeyType(Type kt)
-    {
-        return static_cast<UnterlyingTypeofType>(kt);
-    }
+    static uint8_t uint8FromKey(Key ke);
 
-    static Type keyTypeFromUint8(uint8_t kt)
-    {
-        return static_cast<Type>(kt);
-    }
+    constexpr static uint8_t uint8FromKeyType(Type kt);
 
-    static Key keyFromUint8(uint8_t ke)
-    {
-        return static_cast<Key>(ke);
-    }
+    static Key keyFromUint8(uint8_t ke);
+
+    static Type keyTypeFromUint8(uint8_t kt);
 
     Key key{Key::None};
     Type type{Type::None};
     uint16_t repeated{0};
 };
 
+constexpr uint8_t KeyEvent::keyEnumerationsCount()
+{
+    return static_cast<UnterlyingTypeofKey>(Key::LastEnumeration);
+}
 
+constexpr uint8_t KeyEvent::keysCount()
+{
+    return keyEnumerationsCount() - 1;
+}
 
+constexpr uint8_t KeyEvent::keyTypeEnumerationsCount()
+{
+    return static_cast<UnterlyingTypeofType>(Type::LastEnumeration);
+}
 
+constexpr uint8_t KeyEvent::uint8FromKeyType(Type kt)
+{
+    return static_cast<UnterlyingTypeofType>(kt);
+}
