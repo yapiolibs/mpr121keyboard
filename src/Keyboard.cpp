@@ -2,6 +2,11 @@
 #include <Wire.h>
 #include "KeyEventReceiver.h"
 
+Keyboard::Keyboard(uint16_t short_keypress_delay_ms, uint16_t long_keypress_delay_ms)
+: short_keypress_delay_ms(short_keypress_delay_ms), long_keypress_delay_ms(long_keypress_delay_ms)
+{
+}
+
 bool Keyboard::setup(KeyEventReceiver *receiver, uint8_t i2c_addr)
 {
     Serial.println("Keyboard::setup");
@@ -54,7 +59,7 @@ bool Keyboard::process()
             //Serial.print("Keyboard::process: key ");
             //Serial.print(key_nr);
 
-            if (key_repeated_time_elapsed <= 250)
+            if (key_repeated_time_elapsed <= long_keypress_delay_ms)
             {
                 //Serial.println(" double-pressed ");
                 event.type = KeyEvent::Type::DoublePressed;
@@ -70,7 +75,7 @@ bool Keyboard::process()
 
         } else if (was_touched(key_nr) && is_touched(key_nr))
         {
-            if (key_repeated_time_elapsed >= 125)
+            if (key_repeated_time_elapsed >= short_keypress_delay_ms)
             {
                 event.type = KeyEvent::Type::Repeated;
                 //Serial.print("Keyboard::process: key ");
