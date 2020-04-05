@@ -26,7 +26,7 @@ public:
         Serial.print(" type=");
         Serial.print(std::underlying_type<KeyEvent::Type>::type(e.type));
         Serial.print(" repeated=");
-        Serial.println(e.repeated);*/
+        Serial.println(e.repeated);
 
         bool consumed = false;
 
@@ -87,4 +87,5 @@ public:
 
         return consumed;
     }
+  }
 };
