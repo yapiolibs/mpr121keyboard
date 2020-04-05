@@ -21,7 +21,7 @@ public:
 
 
     bool take(KeyEvent e) override {
-        serial.print("KeyEventHandler::take: key=");
+        Serial.print("KeyEventHandler::take: key=");
         Serial.print(std::underlying_type<KeyEvent::Key>::type(e.key));
         Serial.print(" type=");
         Serial.print(std::underlying_type<KeyEvent::Type>::type(e.type));
