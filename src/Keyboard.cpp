@@ -2,7 +2,7 @@
 #include <Wire.h>
 #include "KeyEventReceiver.h"
 
-void Keyboard::setup(KeyEventReceiver *receiver)
+void Keyboard::setup(KeyEventReceiver *receiver, uint8_t i2c_addr)
 {
     Serial.println("Keyboard::setup");
 
@@ -10,7 +10,7 @@ void Keyboard::setup(KeyEventReceiver *receiver)
 
     // Default address is 0x5A, if tied to 3.3V its 0x5B
     // If tied to SDA its 0x5C and if SCL then 0x5D
-    while (!cap.begin(0x5B))
+    while (!cap.begin(i2c_addr))
     {
         Serial.println("Keyboard::setup: device not found; retry");
         delay(125);
@@ -21,10 +21,13 @@ void Keyboard::setup(KeyEventReceiver *receiver)
         }
     }
     setEventReceiver(receiver);
+    is_initialized = true;
 }
 
 bool Keyboard::process()
 {
+    if (!is_initialized) return false;
+
     bool is_processed = false;
     uint16_t touched_flags = cap.touched();
 
