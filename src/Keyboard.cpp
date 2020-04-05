@@ -2,7 +2,7 @@
 #include <Wire.h>
 #include "KeyEventReceiver.h"
 
-void Keyboard::setup(KeyEventReceiver *receiver, uint8_t i2c_addr)
+bool Keyboard::setup(KeyEventReceiver *receiver, uint8_t i2c_addr)
 {
     Serial.println("Keyboard::setup");
 
@@ -17,11 +17,12 @@ void Keyboard::setup(KeyEventReceiver *receiver, uint8_t i2c_addr)
         if (--retry <= 0)
         {
             Serial.println("Keyboard::setup: device not found; gave up");
-            return;
+            return is_initialized;
         }
     }
     setEventReceiver(receiver);
     is_initialized = true;
+    return is_initialized;
 }
 
 bool Keyboard::process()

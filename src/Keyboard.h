@@ -15,7 +15,7 @@ class Keyboard
     KeyEventReceiver *key_event_receiver = {nullptr};
 
 public:
-    void setup(KeyEventReceiver *receiver = nullptr, uint8_t i2c_addr = 0x5B);
+    bool setup(KeyEventReceiver *receiver = nullptr, uint8_t i2c_addr = 0x5B);
 
     bool process();
 
