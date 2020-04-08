@@ -2,8 +2,8 @@
 #include <Wire.h>
 #include "KeyEventReceiver.h"
 
-Keyboard::Keyboard(uint16_t short_keypress_delay_ms, uint16_t long_keypress_delay_ms)
-: short_keypress_delay_ms(short_keypress_delay_ms), long_keypress_delay_ms(long_keypress_delay_ms)
+Keyboard::Keyboard(uint16_t short_keypress_delay_ms, uint16_t double_keypress_delay_ms)
+: short_keypress_delay_ms(short_keypress_delay_ms), double_keypress_delay_ms(double_keypress_delay_ms)
 {
 }
 
@@ -54,16 +54,20 @@ bool Keyboard::process()
         KeyEvent event;
         event.key = static_cast<KeyEvent::Key>(key_nr);
 
+        // on key press
         if (is_touched(key_nr) && !was_touched(key_nr))
         {
             //Serial.print("Keyboard::process: key ");
             //Serial.print(key_nr);
 
-            if (key_repeated_time_elapsed <= long_keypress_delay_ms)
+            // on double stroke
+            if (key_repeated_time_elapsed <= double_keypress_delay_ms)
             {
                 //Serial.println(" double-pressed ");
                 event.type = KeyEvent::Type::DoublePressed;
-            } else
+            }
+            // on stroke
+            else
             {
                 //Serial.println(" pressed ");
                 event.type = KeyEvent::Type::Pressed;
@@ -73,7 +77,9 @@ bool Keyboard::process()
             key_repeated_time_elapsed = 0;
             key_double_pressed_time_elapsed = 0;
 
-        } else if (was_touched(key_nr) && is_touched(key_nr))
+        }
+        // on key repeated
+        else if (was_touched(key_nr) && is_touched(key_nr))
         {
             if (key_repeated_time_elapsed >= short_keypress_delay_ms)
             {
@@ -84,7 +90,9 @@ bool Keyboard::process()
                 ++num_key_repeats;
                 key_repeated_time_elapsed = 0;
             }
-        } else if (was_touched(key_nr) && !is_touched(key_nr))
+        }
+        // on key released
+        else if (was_touched(key_nr) && !is_touched(key_nr))
         {
             event.type = KeyEvent::Type::Released;
             num_key_repeats = 0;
